@@ -126,7 +126,6 @@ footer {
     -o-background-size: cover;
     background-size: cover;
     min-height: 350px;
-    height: 100vh;
     color: white;
     padding: 45px 23px;
 }
