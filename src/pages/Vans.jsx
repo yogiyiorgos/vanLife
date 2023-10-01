@@ -10,8 +10,6 @@ const Vans = () => {
       .then(data => setVansData(data.vans))
   },[])
 
-  console.log(vansData)
-
   const vanElements = vansData.map((van) => (
     <Link to={`/vans/${van.id}`} key={van.id} className='van-tile'>
       <img src={van.imageUrl} />
