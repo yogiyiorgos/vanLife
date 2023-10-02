@@ -14,7 +14,7 @@ const HostLayout = () => {
         <NavLink 
           to='/host'
           end // Prop to end the route match here, allowing the following links to isActive
-          style={({isActive}) => isActive ? activeStyles : null}
+          style={({isActive}) => isActive ?  activeStyles : null}
          >Dashboard</NavLink>
         <NavLink 
           to='/host/income'
