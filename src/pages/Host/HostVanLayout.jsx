@@ -1,8 +1,9 @@
 import { useState, useEffect} from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useParams } from 'react-router-dom'
 
 const HostVanLayout = () => {
   const [van, setVanDetails] = useState({})
+  const params = useParams()
 
   useEffect(() => {
     fetch('/api/host/vans/:id')    
@@ -26,19 +27,19 @@ const HostVanLayout = () => {
         <p>${van.price}<span>/day</span></p>
       </div>
       <NavLink
-        to='/host/vans/:id/details'
+        to={`/host/vans/${params.id}`}
         end
         style={({isActive}) => isActive ? activeStyles : null}
       >Details
       </NavLink>
       <NavLink
-        to='/:id/pricing'
+        to={`/host/vans/${params.id}/pricing`}
         end
         style={({isActive}) => isActive ? activeStyles : null}
       >Pricing
       </NavLink>
       <NavLink
-        to='/:id/photos'
+        to={`/host/vans/${params.id}/photos`}
         end
         style={({isActive}) => isActive ? activeStyles : null}
       >Photos
