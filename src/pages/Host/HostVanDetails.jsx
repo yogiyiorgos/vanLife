@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Link, Outlet } from 'react-router-dom'
+import { NavLink, useParams, Link, Outlet } from 'react-router-dom'
 
 const HostVanDetails = () => {
   const [vanDetails, setVanDetails] = useState({})
@@ -13,7 +12,13 @@ const HostVanDetails = () => {
   }, [])
 
   if (!vanDetails) {
-    return <h1>Loading</h1>
+    return <h1>Loading...</h1>
+  }
+
+  const activeStyles = {
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    color: '#161616'
   }
 
   return (
@@ -33,7 +38,25 @@ const HostVanDetails = () => {
           </div>
         </div>
       </div>
-      <Outlet />
+
+      <nav className='hast-van-detail-van'>
+        <NavLink
+          to='.'
+          end
+          style={({isActive}) => isActive ? activeStyles : null}
+        >Details</NavLink>
+
+        <NavLink
+          to='pricing'
+          style={({isActive}) => isActive ? activeStyles : null}
+        >Pricing</NavLink>
+
+        <NavLink
+          to='photos'
+          style={({isActive}) => isActive ? activeStyles : null}
+        >Photos</NavLink>           
+      </nav>
+      <Outlet context={{vanDetails}} />
     </section>
   )
 }

@@ -14,18 +14,19 @@ const Navbar = () => {
       <nav>
         <NavLink 
           to='/host'
-          style={({isActive}) => isActive ? activeStyles : null}
-        >
+          style={({isActive}) => isActive ? activeStyles : null}>
             Host
         </NavLink>
         <NavLink 
           to='/about'
-          style={({isActive}) => isActive ? activeStyles : null}
-        >About</NavLink>
+          style={({isActive}) => isActive ? activeStyles : null}>
+            About
+        </NavLink>
         <NavLink 
           to='/vans'
-          style={({isActive}) => isActive ? activeStyles : null}
-        >Vans</NavLink>
+          style={({isActive}) => isActive ? activeStyles : null}>
+            Vans
+        </NavLink>
       </nav>
     </header>
   )

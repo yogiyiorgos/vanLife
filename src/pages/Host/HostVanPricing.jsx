@@ -1,6 +1,10 @@
+import { useOutletContext } from "react-router-dom"
+
 const HostVanPricing = () => {
+  const { vanDetails } = useOutletContext()
+
   return (
-    <h1>Host van pricing component</h1>
+    <h3 className='host-van-price'>${vanDetails.price}<span>/day</span></h3>
   )
 }
 

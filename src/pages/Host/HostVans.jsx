@@ -14,8 +14,8 @@ const HostVans = () => {
     <Link 
       to={`/host/vans/${hostVan.id}`} 
       key={hostVan.id}
-      className='host-van-link-wrapper'
-    >
+      className='host-van-link-wrapper'>
+
       <div className='host-van-single' key={hostVan.id}>
         <img src={hostVan.imageUrl} />
         <div className='host-van-info'>
@@ -23,6 +23,7 @@ const HostVans = () => {
           <p>${hostVan.price}<span>/day</span></p>
         </div>
       </div>
+
     </Link>
   ))
   return (
