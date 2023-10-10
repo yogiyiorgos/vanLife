@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
 
 const HostVans = () => {
   const [hostVansData, setHostVansData] = useState([])
@@ -26,6 +26,7 @@ const HostVans = () => {
 
     </Link>
   ))
+
   return (
     <section>
       <h1 className='host-vans-title'>Your listed vans</h1>
