@@ -18,7 +18,15 @@ const Vans = () => {
     : vansData
 
   const vanElements = displayedVans.map((van) => (
-    <Link to={`/vans/${van.id}`} key={van.id} className='van-tile'>
+    <Link 
+      to={`${van.id}`} 
+      key={van.id} 
+      className='van-tile' 
+      state={{ 
+        search: `?${searchParams.toString()}`,
+        type: typeFilter
+      }}
+    >
       <img src={van.imageUrl} />
       <div className='van-info'>
         <h3>{van.name}</h3>
@@ -33,10 +41,34 @@ const Vans = () => {
     <div className='van-list-container'>
       <h1>Explore our van options</h1>
       <div className='van-list-filter-buttons'>
-        <button onClick={() => setSearchParams({type: 'simple'})} className='van-type simple'>Simple</button>
-        <button onClick={() => setSearchParams({type: 'luxury'})} className='van-type luxury'>Luxury</button>
-        <button onClick={() => setSearchParams({type: 'rugged'})} className='van-type rugged'>Rugged</button>
-        <button onClick={() => setSearchParams({type: ''})} className='van-type clear-filters'>Clear filter</button>
+        <button 
+          onClick={() => setSearchParams({type: 'simple'})} 
+          className={`van-type simple ${typeFilter === 'simple' ? '' : null}`} 
+        >
+          Simple
+        </button>
+        <button 
+          onClick={() => setSearchParams({type: 'luxury'})} 
+          className={`van-type luxury ${typeFilter === 'luxury' ? 'selected' : null}`}
+        >
+          Luxury
+        </button>
+        <button 
+          onClick={() => setSearchParams({type: 'rugged'})} 
+          className={`van-type rugged ${typeFilter === 'rugged' ? 'selected' : null}`}
+        >
+          Rugged
+        </button>
+
+        { typeFilter ? (
+            <button 
+              onClick={() => setSearchParams({type: ''})} 
+              className='van-type clear-filters'
+            >
+              Clear filter
+            </button>
+        ) : null
+        }
       </div>
       <div className='van-list'>
         {vanElements}

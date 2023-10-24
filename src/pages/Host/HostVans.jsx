@@ -12,7 +12,7 @@ const HostVans = () => {
 
   const hostVanElements = hostVansData.map((hostVan) => (
     <Link 
-      to={`/host/vans/${hostVan.id}`} 
+      to={`${hostVan.id}`} 
       key={hostVan.id}
       className='host-van-link-wrapper'>
 
