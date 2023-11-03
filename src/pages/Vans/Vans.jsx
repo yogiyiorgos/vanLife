@@ -4,7 +4,7 @@ import {
   useSearchParams,
   useLoaderData
 } from 'react-router-dom'
-import { getVans } from '../../api'
+import { getVans } from '../../../api'
 
 export function vansLoader() {
   return getVans()
