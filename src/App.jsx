@@ -50,12 +50,17 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route 
         index 
         element={<Dashboard />} 
-        loader={async () => requireAuth() || null}
+        loader={async ({ request }) => requireAuth(request)}
       />
       <Route 
         path='income' 
         element={<Income />} 
-        loader={async () => requireAuth()}
+        loader={async ({ request }) => requireAuth(request)}
+      />
+      <Route 
+        path='reviews' 
+        element={<Reviews />} 
+        loader={async ({ request }) => requireAuth(request)}
       />
       <Route 
         path='vans' 
@@ -70,24 +75,19 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route 
           index 
           element={<HostVanInfo />} 
-          loader={async () => requireAuth()}
+          loader={async ({ request }) => requireAuth(request)}
         />
         <Route 
           path='pricing' 
           element={<HostVanPricing />} 
-          loader={async () => requireAuth()}
+          loader={async ({ request }) => requireAuth(request)}
         />
         <Route 
           path='photos' 
           element={<HostVanPhotos />} 
-          loader={async () => requireAuth()}
+          loader={async ({ request }) => requireAuth(request)}
         />
       </Route>
-      <Route 
-        path='reviews' 
-        element={<Reviews />} 
-        loader={async () => requireAuth()}
-      />
     </Route>
     <Route path='*' element={<NotFound />} />
   </Route>
