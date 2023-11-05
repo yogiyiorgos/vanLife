@@ -21,7 +21,7 @@ import HostVanPricing from './pages/Host/HostVanPricing'
 import HostVanPhotos from './pages/Host/HostVanPhotos'
 import NotFound from './pages/NotFound'
 import Error from './components/Error'
-import Login, { loginLoader } from './pages/Login'
+import Login, { loginAction, loginLoader } from './pages/Login'
 import { requireAuth } from '../utils'
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -43,13 +43,14 @@ const router = createBrowserRouter(createRoutesFromElements(
       path='login' 
       element={<Login />} 
       loader={loginLoader}
+      action={loginAction}
     />
 
     <Route path='host' element={<HostLayout/>}>
       <Route 
         index 
         element={<Dashboard />} 
-        loader={async () => requireAuth()}
+        loader={async () => requireAuth() || null}
       />
       <Route 
         path='income' 
