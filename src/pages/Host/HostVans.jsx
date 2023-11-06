@@ -7,10 +7,10 @@ export async function hostVansLoader({ request }) {
   return getHostVans()
 }
 
-const HostVans = () => {
-  const hostVansData = useLoaderData()
+export default function HostVans() {
+  const vans = useLoaderData()
 
-  const hostVanElements = hostVansData.map((hostVan) => (
+  const hostVanElements = vans.map((hostVan) => (
     <Link 
       to={`${hostVan.id}`} 
       key={hostVan.id}
@@ -38,5 +38,3 @@ const HostVans = () => {
     </section>
   )
 }
-
-export default HostVans

@@ -1,11 +1,11 @@
-import { Link, useLocation, useLoaderData } from "react-router-dom"
+import { Link, useSearchParams, useLoaderData, useLocation } from "react-router-dom"
 import { getVans } from '../../../api'
 
 export function vanLoader({ params }) {
   return getVans(params.id)
 }
 
-const Van = () => {
+export default function Van() {
   const location = useLocation()
   const van = useLoaderData()
 
@@ -14,12 +14,14 @@ const Van = () => {
 
   return (
     <div className='van-detail-container'>
-      <Link to={`..${search}`}
+      <Link 
+        to={`..${search}`}
         relative='path'
         className='back-button'
       >
         &larr; <span>Back to {type} vans</span>
       </Link>
+
       <div className='van-detail'>
         <img src={van.imageUrl} />
         <i className={`van-type ${van.type} selected`}>{van.type}</i>
@@ -28,8 +30,7 @@ const Van = () => {
         <p>{van.description}</p>
         <button className='link-button'>Rent this van</button>
       </div>
+
     </div>
   )
 }
-
-export default Van

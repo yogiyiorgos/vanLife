@@ -7,7 +7,7 @@ export async function hostVanDetailsLoader({ params, request }) {
   return getHostVans(params.id)
 }
 
-const HostVanDetails = () => {
+export default function HostVanDetails() {
   const vanDetails = useLoaderData()
 
   const activeStyles = {
@@ -18,7 +18,8 @@ const HostVanDetails = () => {
 
   return (
     <section>
-      <Link to='..'
+      <Link 
+        to='..'
         relative='path'
         className='back-button'
       >
@@ -42,21 +43,25 @@ const HostVanDetails = () => {
           to='.'
           end
           style={({isActive}) => isActive ? activeStyles : null}
-        >Details</NavLink>
+        >
+          Details
+        </NavLink>
 
         <NavLink
           to='pricing'
           style={({isActive}) => isActive ? activeStyles : null}
-        >Pricing</NavLink>
+        >
+          Pricing
+        </NavLink>
 
         <NavLink
           to='photos'
           style={({isActive}) => isActive ? activeStyles : null}
-        >Photos</NavLink>           
+        >
+          Photos
+        </NavLink>           
       </nav>
       <Outlet context={{vanDetails}} />
     </section>
   )
 }
-
-export default HostVanDetails

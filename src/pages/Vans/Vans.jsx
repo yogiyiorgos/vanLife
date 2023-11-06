@@ -10,34 +10,34 @@ export function vansLoader() {
   return getVans()
 }
 
-const Vans = () => {
+export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [error, setError] = useState(null)
-  const vansData = useLoaderData()
+  const vans = useLoaderData()
 
   const typeFilter = searchParams.get('type')
 
   const displayedVans = typeFilter
-    ? vansData.filter(van => van.type === typeFilter)
-    : vansData
+    ? vans.filter(van => van.type === typeFilter)
+    : vans
 
   const vanElements = displayedVans.map((van) => (
-    <Link 
-      to={`${van.id}`} 
-      key={van.id} 
-      className='van-tile' 
-      state={{ 
-        search: `?${searchParams.toString()}`,
-        type: typeFilter
-      }}
-    >
-      <img src={van.imageUrl} />
-      <div className='van-info'>
-        <h3>{van.name}</h3>
-        <p>${van.price}<span>/day</span></p>
-      </div>
-      <i className={`van-type ${van.type} selected`}>{van.type}</i>
-    </Link>
+    <div key={van.id} className='van-tile'>
+      <Link 
+        to={van.id} 
+        state={{ 
+          search: `?${searchParams.toString()}`,
+          type: typeFilter
+        }}
+      >
+        <img src={van.imageUrl} />
+        <div className='van-info'>
+          <h3>{van.name}</h3>
+          <p>${van.price}<span>/day</span></p>
+        </div>
+        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+      </Link>
+    </div>
   ))
 
   if (error) {
@@ -83,5 +83,3 @@ const Vans = () => {
     </div>
   )
 }
-
-export default Vans

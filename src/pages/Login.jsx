@@ -26,7 +26,7 @@ export async function loginAction({ request }) {
   }
 }
 
-const Login = () => {
+export default function Login() {
   const errorMessage = useActionData()
   const message = useLoaderData()
   const navigation = useNavigation()
@@ -58,5 +58,3 @@ const Login = () => {
     </div>
   )
 }
-
-export default Login

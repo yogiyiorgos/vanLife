@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import hrImg from '../assets/images/about-hero.png'
 
-const About = () => {
+export default function About() {
   return (
     <div>
       <div className='about-page-container'>
@@ -22,5 +22,3 @@ const About = () => {
     </div>
   )
 }
-
-export default About
