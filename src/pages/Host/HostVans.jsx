@@ -10,10 +10,10 @@ import { requireAuth } from '../../../utils'
 
 export async function hostVansLoader({ request }) {
   await requireAuth(request)
-  return defer({ hostVansData: getHostVans()})
+  return defer({ hostVansData: getHostVans() })
 }
 
-const HostVans = () => {
+export default function HostVans() {
   const dataPromise = useLoaderData()
 
   function renderHostVanElements(hostVansData) {
@@ -52,5 +52,3 @@ const HostVans = () => {
     </section>
   )
 }
-
-export default HostVans

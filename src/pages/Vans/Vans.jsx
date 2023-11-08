@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react'
+import { Suspense } from 'react'
 import { 
   Link, 
   useSearchParams,
@@ -14,15 +14,9 @@ export function vansLoader() {
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [error, setError] = useState(null)
   const dataPromise = useLoaderData()
 
   const typeFilter = searchParams.get('type')
-
-
-  if (error) {
-    return <h2>There was an error: {error.message}</h2>
-  }
 
   function renderVanElements(vansData) {
       const displayedVans = typeFilter
