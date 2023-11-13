@@ -1,86 +1,169 @@
-import { Suspense } from 'react'
-import { 
-  NavLink, 
-  Link, 
-  Outlet, 
-  useLoaderData,
-  defer,
-  Await
-} from 'react-router-dom'
-import { getVan } from '../../../api'
-import { requireAuth } from '../../../utils'
+// import { Suspense } from 'react'
+// import { 
+//   NavLink, 
+//   Link, 
+//   Outlet, 
+//   useLoaderData,
+//   defer,
+//   Await
+// } from 'react-router-dom'
+// import { getHostVans } from '../../../api'
 
-export async function hostVanDetailsLoader({ params, request }) {
-  await requireAuth(request)
-  return defer({ vanDetails: getVan(params.id) })
+// export async function hostVanDetailsLoader({ params }) {
+//   return defer({ vanDetails: getHostVans(params.id) })
+// }
+
+// export default function HostVanDetails({vanDetails}) {
+//   const promiseData = useLoaderData()
+//   console.log(promiseData)
+
+//   const activeStyles = {
+//     fontWeight: 'bold',
+//     textDecoration: 'underline',
+//     color: '#161616'
+//   }
+
+//   function renderHostVanDetails({vanDetails}) {
+//     return (
+//       <div className='host-van-detail-layout-container'>
+//         <div className='host-van-detail'>
+//           <img src={vanDetails.imageUrl} />
+//           <div className='host-van-detail-info-text'>
+//             <i className={`van-type van-type-${vanDetails.type}`}>
+//               {vanDetails.type}
+//             </i>
+//             <h3>{vanDetails.name}</h3>
+//             <h4>${vanDetails.price}/day</h4>
+//           </div>
+//         </div>
+//       </div>
+//     )    
+//   }
+
+//   return (
+//     <section>
+//       <Link 
+//         to='..'
+//         relative='path'
+//         className='back-button'
+//       >
+//         &larr; <span>Back to all vans</span>
+//       </Link>
+
+//       <Suspense fallback={<h2>Loading van details...</h2>}>
+//         <Await resolve={promiseData.vanDetails}>
+//           {renderHostVanDetails}
+
+//           <div className='host-van-detail-layout-container'>
+//             <div className='host-van-detail'>
+//               <img src={vanDetails.imageUrl} />
+//               <div className='host-van-detail-info-text'>
+//                 <i className={`van-type van-type-${vanDetails.type}`}>
+//                   {vanDetails.type}
+//                 </i>
+//                 <h3>{vanDetails.name}</h3>
+//                 <h4>${vanDetails.price}/day</h4>
+//               </div>
+//             </div>
+//           </div>
+//         )    
+//           <nav className='hast-van-detail-van'>
+//             <NavLink
+//               to='.'
+//               end
+//               style={({isActive}) => isActive ? activeStyles : null}
+//             >
+//               Details
+//             </NavLink>
+
+//             <NavLink
+//               to='pricing'
+//               style={({isActive}) => isActive ? activeStyles : null}
+//             >
+//               Pricing
+//             </NavLink>
+
+//             <NavLink
+//               to='photos'
+//               style={({isActive}) => isActive ? activeStyles : null}
+//             >
+//               Photos
+//             </NavLink>           
+//           </nav>
+//           <Outlet context={vanDetails} />
+//         </Await>
+//       </Suspense>
+//     </section>
+//   )
+// }
+import React from "react"
+import { useParams, useLoaderData, Link, NavLink, Outlet, defer, Await } from "react-router-dom"
+import { getHostVans } from "../../../api"
+
+export function loader({ params }) {
+	return defer({ van: getHostVans(params.id) })
 }
 
-export default function HostVanDetails() {
-  const dataPromise = useLoaderData()
+export default function HostVanDetail() {
+	const loaderData = useLoaderData()
 
-  const activeStyles = {
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-    color: '#161616'
-  }
+	const activeStyles = {
+		fontWeight: "bold",
+		textDecoration: "underline",
+		color: "#161616"
+	}
 
-  function renderHostVanDetails(vanDetails) {
-    return (
-      <div className='host-van-detail-layout-container'>
-        <div className='host-van-detail'>
-          <img src={vanDetails.imageUrl} />
-          <div className='host-van-detail-info-text'>
-            <i className={`van-type van-type-${vanDetails.type}`}>
-              {vanDetails.type}
-            </i>
-            <h3>{vanDetails.name}</h3>
-            <h4>${vanDetails.price}/day</h4>
-          </div>
-        </div>
-      </div>
-    )    
-  }
+	return (
+		<section>
+			<Link
+				to=".."
+				relative="path"
+				className="back-button"
+			>&larr; <span>Back to all vans</span></Link>
+			<React.Suspense fallback={<h2>Loading...</h2>}>
+				<Await resolve={loaderData.van}>
+					{(currentVan) => (
+						<div className="host-van-detail-layout-container">
+							<div className="host-van-detail">
+								<img src={currentVan.imageUrl} />
+								<div className="host-van-detail-info-text">
+									<i
+										className={`van-type van-type-${currentVan.type}`}
+									>
+										{currentVan.type}
+									</i>
+									<h3>{currentVan.name}</h3>
+									<h4>${currentVan.price}/day</h4>
+								</div>
+							</div>
 
-  return (
-    <section>
-      <Link 
-        to='..'
-        relative='path'
-        className='back-button'
-      >
-        &larr; <span>Back to all vans</span>
-      </Link>
+							<nav className="host-van-detail-nav">
+								<NavLink
+									to="."
+									end
+									style={({ isActive }) => isActive ? activeStyles : null}
+								>
+									Details
+								</NavLink>
+								<NavLink
+									to="pricing"
+									style={({ isActive }) => isActive ? activeStyles : null}
+								>
+									Pricing
+								</NavLink>
+								<NavLink
+									to="photos"
+									style={({ isActive }) => isActive ? activeStyles : null}
+								>
+									Photos
+								</NavLink>
+							</nav>
+							<Outlet context={{ currentVan }} />
+						</div>
 
-      <Suspense fallback={<h2>Loading van details...</h2>}>
-        <Await resolve={dataPromise.vanDetails}>
-          {renderHostVanDetails}
-
-      <nav className='hast-van-detail-van'>
-        <NavLink
-          to='.'
-          end
-          style={({isActive}) => isActive ? activeStyles : null}
-        >
-          Details
-        </NavLink>
-
-        <NavLink
-          to='pricing'
-          style={({isActive}) => isActive ? activeStyles : null}
-        >
-          Pricing
-        </NavLink>
-
-        <NavLink
-          to='photos'
-          style={({isActive}) => isActive ? activeStyles : null}
-        >
-          Photos
-        </NavLink>           
-      </nav>
-      <Outlet context={{vanDetails}} />
-        </Await>
-      </Suspense>
-    </section>
-  )
+					)}
+				</Await>
+			</React.Suspense>
+		</section>
+	)
 }

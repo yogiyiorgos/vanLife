@@ -43,6 +43,7 @@ export default function Van() {
       </Link>
       <Suspense fallback={<h2>Loading van...</h2>}>
         <Await resolve={dataPromise.van}>
+
           {renderVan}
         </Await>
       </Suspense>
